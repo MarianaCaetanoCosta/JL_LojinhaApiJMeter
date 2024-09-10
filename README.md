@@ -239,11 +239,11 @@ Este tutorial detalha o processo para criar e executar scripts de teste de autom
 
 ![image](https://github.com/user-attachments/assets/07399e35-fe12-4c22-8387-5f593ce8af45)
 
-2. Cabeçalho dos dados
+### Cabeçalho dos dados
 
-   
 
-   Abra um bloco de notas e cadastre as informações abaixo:
+
+Abra um bloco de notas e cadastre as informações abaixo:
 
 login;senha;nomeProduto;valorProduto;coreProduto;componenteNome;componenteQuantidade
 admin;admin;iPhone;200.00;Azul;Carregador;1
@@ -258,43 +258,228 @@ salvar o arquivo como dados-teste.api.csv
 
 ![image](https://github.com/user-attachments/assets/ebd72d34-556e-456c-9630-12aac407465e)
 
-3. Clique com o botão direito em Login com **Cadastro de Produto** > Adicionar > Elemento de Configuração > CSV Data Set Config
+### Elementos de Configuração
 
-   ![image](https://github.com/user-attachments/assets/9b745451-31b6-4346-80b1-9262ccece1b4)
+Clique com o botão direito em Login com **Cadastro de Produto** > Adicionar > Elemento de Configuração > CSV Data Set Config
 
-   
+![image](https://github.com/user-attachments/assets/9b745451-31b6-4346-80b1-9262ccece1b4)
 
-4. Clique com o botão direito em **Variáveis do ambiente** > desabilitar
 
-   ![image-20240910003348173](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910003348173.png)
 
-5. Capturar Token
+### Variáveis do ambiente
 
-   1. Na aba: **Body Data** altera as variáveis
+Clique com o botão direito em **Variáveis do ambiente** > desabilitar
 
-      > ```
-      > {
-      >   "usuarioLogin": "${login}",
-      >   "usuarioSenha": "${senha}"
-      > }
-      > ```
+![image-20240910003348173](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910003348173.png)
 
-6. Cadastrar Produto
 
-   ![image](https://github.com/user-attachments/assets/d4fb5586-29b9-4693-87e3-0b0eb875aa04)
 
-7. Executar Testes
+### Capturar Token
 
-   ![image-20240910002253486](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910002253486.png)
+1. Na aba: **Body Data** altera as variáveis
 
-8. Adicionar temporizador
+   > ```
+   > {
+   >   "usuarioLogin": "${login}",
+   >   "usuarioSenha": "${senha}"
+   > }
+   > ```
 
-   Clique com o botão direito em **Login com Cadastro de usuário** > Adicionar > Temporizador > Temporizador Aleatório Gaussiano
 
-   
+
+### Cadastrar Produto
+
+![image](https://github.com/user-attachments/assets/d4fb5586-29b9-4693-87e3-0b0eb875aa04)
+
+### Executar Testes
+
+![image-20240910002253486](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910002253486.png)
+
+### Adicionar temporizador
+
+Clique com o botão direito em **Login com Cadastro de usuário** > Adicionar > Temporizador > Temporizador Aleatório Gaussiano
+
+
 
 ![image-20240910002959152](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910002959152.png)
 
-9. Executar Testes
+### Executar Testes
 
-   ![image-20240910003633868](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910003633868.png)
+![image-20240910003633868](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910003633868.png)
+
+
+
+# Implementar Relatórios
+
+
+
+### Instalação Plugin
+
+1. Fazer Download [Jmeter Plugin Manager](https://jmeter-plugins.org/wiki/PluginsManager/)
+
+2. Salvar na pasta **apache-jmeter-5.6.3\lib\ext**
+
+3. Reinicie o **Jmeter** para reconhecer o plugin
+
+   
+
+### Habilitação do Plugin
+
+1. Abra o Jmeter > Opções > Jmeter Plugin Manager > Aba: Avaliable Plugins > habilitar: 3 Basic Graphs > Apply changes and Restart Jmeter > ele vai baixar os arquivos e reiniciar o Jmeter
+
+![image-20240910094807719](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910094807719.png)
+
+### Abra o Projeto "**Lojinha API Testes.jmx**"
+
+1. clique com o botão direito sobre **"Ver Árvore de Resultados"** > Desabilite 
+
+![image-20240910095104901](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910095104901.png)
+
+
+
+### Adicionar **Ouvintes** de gráficos importantes do plugin
+
+1. Clique com o botão direito em **Lojinha com Cadastro de Produto** > Adicionar > Ouvinte
+   1. Relatório Agregado
+   2. Relatório De Sumário
+   3. Jp@gc - Active Thereads Over Time
+   4. Jp@gc - Response Times Over Time
+   5. Jp@gc - Transactions per Second
+
+
+
+### Configurar os Ouvintes para exibir resultado em 100ms
+
+1. Clique no relatório **Jp@gc - Active Thereads Over Time** > Aba: Settings > Group timeline values for: 100ms
+
+2. Clique no relatório **Jp@gc - Response Times Over Time** > Aba: Settings > Group timeline values for: 100ms
+
+3. Clique no relatório **Jp@gc - Transactions per Second** > Aba: Settings > Group timeline values for: 100ms
+
+   
+
+### Configuração dos testes de **Desempenho**, **Carga** e **Estresse**
+
+#### Teste de Desempenho
+
+* **Objetivo:** Validar que a aplicação funciona bem quando nossos usuários a utiliza.
+* **Cenário:** Cadastro de Produto
+* **Quantidade de Usuários:** 50 usuários simultâneos
+* **Tempo de Execução:** N/A
+* **Resultado Esperado:** Tempo de carregamento máximo de 3 segundos
+
+
+
+* **Configuração:**
+
+  * Login com Compra de Produtos
+    * Propriedade do Usuário Virtual
+      * Número de Usuários Virtuais (thereads): 50
+      * Tempo de inicialização (em segundos): 3
+      * Contador de Iteração: 1
+
+  
+
+  ![image-20240910104004717](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910104004717.png)
+
+#### Teste de Carga
+
+* **Objetivo:** Validar que durante todo o dia nacional das compras, nossos usuários tenham uma experiência veloz do uso do software.
+* **Cenário:** Compra de Produto
+* **Quantidade de Usuários:** 50 usuários simultâneos
+* **Tempo de Execução:** 24 horas
+* **Resultado Esperado:** Tempo de carregamento máximo de 3 segundos
+
+
+
+* **Configuração:**
+
+  * Login com Compra de Produtos
+
+    * Propriedade do Usuário Virtual
+
+      * Número de Usuários Virtuais (thereads): 50
+
+      * Tempo de inicialização (em segundos): 3
+
+      * Contador de Iteração: 1
+
+      * Habilite: Agendador
+
+        * Duração (segundos): 86400
+
+        * Atraso para início (segundos): 
+
+![image-20240910104553800](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910104553800.png)
+
+#### Teste de Estresse
+
+* **Objetivo:** Descobrir quais são os limites da aplicação e sua infraestrutura enquanto é utilizada de maneira excessiva.
+
+* **Cenário:** Pesquisa de Produto
+
+* **Quantidade de Usuários:** N/A
+
+* **Tempo de Execução:** N/A
+
+* **Resultado Esperado:** N/A
+
+  
+
+* **Configuração:**
+
+  * Login com Compra de Produtos
+
+    * Propriedade do Usuário Virtual
+
+      * Número de Usuários Virtuais (thereads): 50
+
+      * Tempo de inicialização (em segundos): 3
+
+      * Contador de Iteração > habilite Infinito
+
+        
+
+  ![image-20240910104755535](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910104755535.png)
+
+
+
+### Configuração dos dados CSV
+
+1. Como você tem 5 dados cadastrados o Jmeter vai começar a reaproveitar os dados para os testes duplicando os registros, no nosso caso não tem problema.
+2. Para testes mais robustos será necessários criar 50 dados para que não haja duplicidade de registros.
+
+![image-20240910110759291](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910110759291.png)
+
+### Salve as configurações
+
+### Execute os Testes e acompanhar resultados
+
+1. Limpe os resultados dos relatórios
+2. Execute o Teste
+
+
+
+#### Relatório Agregado
+
+![image-20240910105931625](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910105931625.png)
+
+#### Relatório de sumário
+
+![image-20240910105943750](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910105943750.png)
+
+#### jp@gc - Active Threads Over Time
+
+![image-20240910110008881](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910110008881.png)
+
+
+
+#### jp@gc - Response Times Over Time
+
+![image-20240910110031441](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910110031441.png)
+
+
+
+#### jp@gc - Transactions per Second
+
+![image-20240910110048650](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910110048650.png)
