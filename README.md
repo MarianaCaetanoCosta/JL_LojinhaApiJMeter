@@ -228,3 +228,73 @@ Este tutorial detalha o processo para criar e executar scripts de teste de autom
    ![image-20240909231054844](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240909231054844.png)
 
    ![image-20240909231116339](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240909231116339.png)
+
+
+
+# Refactory
+
+1. Login com Cadastro de Produto
+
+​	Cadastra a partir de 5 usuários virtuais
+
+![image](https://github.com/user-attachments/assets/07399e35-fe12-4c22-8387-5f593ce8af45)
+
+2. Cabeçalho dos dados
+
+   
+
+   Abra um bloco de notas e cadastre as informações abaixo:
+
+login;senha;nomeProduto;valorProduto;coreProduto;componenteNome;componenteQuantidade
+admin;admin;iPhone;200.00;Azul;Carregador;1
+admin;admin;Macbook Pro;6999.99;Cinza;Bateria;1
+admin;admin;Apple Watch;3599.99;Vermelho;Pelicula;1
+admin;admin;iPad 10a Geracao;2020.00;Branco;Capa De Proteção;1
+admin;admin;Relogio;455.80;Dourado;Pulseira;1
+
+salvar o arquivo como dados-teste.api.csv
+
+
+
+![image](https://github.com/user-attachments/assets/ebd72d34-556e-456c-9630-12aac407465e)
+
+3. Clique com o botão direito em Login com **Cadastro de Produto** > Adicionar > Elemento de Configuração > CSV Data Set Config
+
+   ![image](https://github.com/user-attachments/assets/9b745451-31b6-4346-80b1-9262ccece1b4)
+
+   
+
+4. Clique com o botão direito em **Variáveis do ambiente** > desabilitar
+
+   ![image-20240910003348173](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910003348173.png)
+
+5. Capturar Token
+
+   1. Na aba: **Body Data** altera as variáveis
+
+      > ```
+      > {
+      >   "usuarioLogin": "${login}",
+      >   "usuarioSenha": "${senha}"
+      > }
+      > ```
+
+6. Cadastrar Produto
+
+   ![image](https://github.com/user-attachments/assets/d4fb5586-29b9-4693-87e3-0b0eb875aa04)
+
+7. Executar Testes
+
+   ![image-20240910002253486](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910002253486.png)
+
+8. Adicionar temporizador
+
+   Clique com o botão direito em **Login com Cadastro de usuário** > Adicionar > Temporizador > Temporizador Aleatório Gaussiano
+
+   
+
+![image-20240910002959152](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910002959152.png)
+
+9. Executar Testes
+
+   ![image-20240910003633868](C:\Users\maria\AppData\Roaming\Typora\typora-user-images\image-20240910003633868.png)

@@ -5,12 +5,10 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="Variáveis Definidas Pelo Usuário">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Login com Compra de Produtos">
-        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.num_threads">5</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -20,7 +18,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Variáveis Definidas Pelo Usuário">
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Variáveis Definidas Pelo Usuário" enabled="false">
           <collectionProp name="Arguments.arguments">
             <elementProp name="usuarioPadrao" elementType="Argument">
               <stringProp name="Argument.name">usuarioPadrao</stringProp>
@@ -35,7 +33,7 @@
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="Padrões de Requisição HTTP">
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="Padrões de Requisição HTTP" enabled="true">
           <stringProp name="HTTPSampler.domain">165.227.93.41</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="Variáveis Definidas Pelo Usuário">
@@ -43,6 +41,23 @@
           </elementProp>
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </ConfigTestElement>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Configuração dos dados CSV">
+          <stringProp name="delimiter">;</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="filename">C:/Workspace_Jmeter/LojinhaApiJMeter/dados-teste-api.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames"></stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Temporizador Aleatório Gaussiano">
+          <stringProp name="ConstantTimer.delay">200</stringProp>
+          <stringProp name="RandomTimer.range">300</stringProp>
+        </GaussianRandomTimer>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Capturar Token">
           <stringProp name="HTTPSampler.path">/lojinha/v2/login</stringProp>
@@ -55,8 +70,8 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;usuarioLogin&quot;: &quot;${usuarioPadrao}&quot;,&#xd;
-  &quot;usuarioSenha&quot;: &quot;${senhaPadrao}&quot;&#xd;
+  &quot;usuarioLogin&quot;: &quot;${login}&quot;,&#xd;
+  &quot;usuarioSenha&quot;: &quot;${senha}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -92,16 +107,16 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;produtoNome&quot;: &quot;Samsung Expert&quot;,&#xd;
-  &quot;produtoValor&quot;: 100.00,&#xd;
+  &quot;produtoNome&quot;: &quot;${nomeProduto}&quot;,&#xd;
+  &quot;produtoValor&quot;: ${valorProduto},&#xd;
   &quot;produtoCores&quot;: [&#xd;
-    &quot;preto&quot;&#xd;
+    &quot;${coreProduto}&quot;&#xd;
   ],&#xd;
   &quot;produtoUrlMock&quot;: &quot;string&quot;,&#xd;
   &quot;componentes&quot;: [&#xd;
     {&#xd;
-      &quot;componenteNome&quot;: &quot;Fonte do Carregador&quot;,&#xd;
-      &quot;componenteQuantidade&quot;: 5&#xd;
+      &quot;componenteNome&quot;: &quot;${componenteNome}&quot;,&#xd;
+      &quot;componenteQuantidade&quot;: ${componenteQuantidade}&#xd;
     }&#xd;
   ]&#xd;
 }</stringProp>
@@ -111,7 +126,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Gerenciador de Cabeçalhos HTTP">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Gerenciador de Cabeçalhos HTTP" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
